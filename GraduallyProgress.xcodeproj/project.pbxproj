@@ -13,7 +13,8 @@
 		658BB1321CF5A8E2007B9387 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 658BB1301CF5A8E2007B9387 /* Main.storyboard */; };
 		658BB1341CF5A8E2007B9387 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 658BB1331CF5A8E2007B9387 /* Assets.xcassets */; };
 		658BB1371CF5A8E2007B9387 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 658BB1351CF5A8E2007B9387 /* LaunchScreen.storyboard */; };
-		658BB1401CF5A901007B9387 /* WSGraduallyProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 658BB13F1CF5A901007B9387 /* WSGraduallyProgress.m */; };
+		65FEA0921CF83A650022175C /* UIColor+WS.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FEA08F1CF83A650022175C /* UIColor+WS.m */; };
+		65FEA0931CF83A650022175C /* WSGraduallyProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FEA0911CF83A650022175C /* WSGraduallyProgress.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,8 +28,10 @@
 		658BB1331CF5A8E2007B9387 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		658BB1361CF5A8E2007B9387 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		658BB1381CF5A8E2007B9387 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		658BB13E1CF5A901007B9387 /* WSGraduallyProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSGraduallyProgress.h; sourceTree = "<group>"; };
-		658BB13F1CF5A901007B9387 /* WSGraduallyProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSGraduallyProgress.m; sourceTree = "<group>"; };
+		65FEA08E1CF83A650022175C /* UIColor+WS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WS.h"; sourceTree = "<group>"; };
+		65FEA08F1CF83A650022175C /* UIColor+WS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WS.m"; sourceTree = "<group>"; };
+		65FEA0901CF83A650022175C /* WSGraduallyProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSGraduallyProgress.h; sourceTree = "<group>"; };
+		65FEA0911CF83A650022175C /* WSGraduallyProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSGraduallyProgress.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,8 +64,7 @@
 		658BB1261CF5A8E2007B9387 /* GraduallyProgress */ = {
 			isa = PBXGroup;
 			children = (
-				658BB13E1CF5A901007B9387 /* WSGraduallyProgress.h */,
-				658BB13F1CF5A901007B9387 /* WSGraduallyProgress.m */,
+				65FEA08D1CF83A650022175C /* WSGraduallyProgress */,
 				658BB12A1CF5A8E2007B9387 /* AppDelegate.h */,
 				658BB12B1CF5A8E2007B9387 /* AppDelegate.m */,
 				658BB12D1CF5A8E2007B9387 /* ViewController.h */,
@@ -82,6 +84,17 @@
 				658BB1281CF5A8E2007B9387 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		65FEA08D1CF83A650022175C /* WSGraduallyProgress */ = {
+			isa = PBXGroup;
+			children = (
+				65FEA08E1CF83A650022175C /* UIColor+WS.h */,
+				65FEA08F1CF83A650022175C /* UIColor+WS.m */,
+				65FEA0901CF83A650022175C /* WSGraduallyProgress.h */,
+				65FEA0911CF83A650022175C /* WSGraduallyProgress.m */,
+			);
+			path = WSGraduallyProgress;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,10 +167,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				658BB1401CF5A901007B9387 /* WSGraduallyProgress.m in Sources */,
+				65FEA0921CF83A650022175C /* UIColor+WS.m in Sources */,
 				658BB12F1CF5A8E2007B9387 /* ViewController.m in Sources */,
 				658BB12C1CF5A8E2007B9387 /* AppDelegate.m in Sources */,
 				658BB1291CF5A8E2007B9387 /* main.m in Sources */,
+				65FEA0931CF83A650022175C /* WSGraduallyProgress.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +284,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GraduallyProgress/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.wackosix.GraduallyProgress;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -281,6 +296,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GraduallyProgress/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.wackosix.GraduallyProgress;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -306,6 +322,7 @@
 				658BB13D1CF5A8E2007B9387 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

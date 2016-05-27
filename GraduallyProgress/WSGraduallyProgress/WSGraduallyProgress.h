@@ -12,7 +12,8 @@
 
 @property (nonatomic, assign) CGFloat total;
 @property (nonatomic, assign) CGFloat current;
-@property (nonatomic, assign) NSInteger startHex;
-@property (nonatomic, assign) NSInteger endHex;
+@property (nonatomic, strong) UIColor *startColor;
+@property (nonatomic, strong) UIColor *endColor;
+@property (nonatomic, strong) UIColor *bgColor;
 
 @end
