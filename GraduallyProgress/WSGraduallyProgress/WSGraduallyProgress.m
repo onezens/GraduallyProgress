@@ -13,6 +13,11 @@
 
 #pragma mark - init
 
+//- (void)setFrame:(CGRect)frame {
+//    
+//    [super setFrame: CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, self.height)];
+//}
+
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
@@ -30,7 +35,7 @@
 }
 
 - (void)setCurrent:(CGFloat)current {
-    _current = current;
+    _current = current > _total ? _total : current;
     [self setNeedsDisplay];
 }
 
@@ -48,25 +53,27 @@
     CGPoint startPoint = CGPointMake(0, rect.size.height * 0.5 - lineWidth * 0.5);
     CGFloat width = rect.size.width - startPoint.x * 2;
     CGContextRef ctx=UIGraphicsGetCurrentContext();
-    CGContextMoveToPoint(ctx, startPoint.x + lineWidth * 0.5, startPoint.y);
-    CGContextAddLineToPoint(ctx, rect.size.width - lineWidth * 0.5, startPoint.y);
-    CGContextSetLineWidth(ctx, lineWidth);
-    CGContextSetLineCap(ctx, kCGLineCapRound);
-    CGContextSetStrokeColorWithColor(ctx, self.bgColor.CGColor);
-    CGContextStrokePath(ctx);
+    [self drawBackGround:ctx startPoint:startPoint lineWidth:lineWidth width:width];
     
     if (self.total != 0) {
         for (NSInteger i=0; i<=self.current; i++) {
-            if (self.total == i) {
-                break;
-            }
-            [self change:startPoint width:width percent:i / self.total ref:ctx lineWidth:lineWidth];
+            [self change:startPoint width:width percent:i / self.total ref:ctx lineWidth:lineWidth isFirst:i==0 isLast:i==self.current];
         }
     }
 }
 
+- (void)drawBackGround:(CGContextRef)ctx startPoint:(CGPoint)startPoint lineWidth:(CGFloat)lineWidth width:(CGFloat)width{
+    
+    CGContextMoveToPoint(ctx, startPoint.x + lineWidth * 0.5, startPoint.y);
+    CGContextAddLineToPoint(ctx, width - lineWidth * 0.5, startPoint.y);
+    CGContextSetLineWidth(ctx, lineWidth);
+    CGContextSetLineCap(ctx, kCGLineCapRound);
+    CGContextSetStrokeColorWithColor(ctx, self.bgColor.CGColor);
+    CGContextStrokePath(ctx);
+}
 
-- (void)change:(CGPoint)startPoint width:(CGFloat)width percent:(CGFloat)percent ref:(CGContextRef)ref lineWidth:(CGFloat)lineWidth{
+
+- (void)change:(CGPoint)startPoint width:(CGFloat)width percent:(CGFloat)percent ref:(CGContextRef)ctx lineWidth:(CGFloat)lineWidth isFirst:(BOOL)isFirst isLast:(BOOL)isLast {
     
     if (percent == 0 || percent > 1) return;
     percent = percent - 1.0/self.total;
@@ -80,32 +87,29 @@
     float FB = [self.endColor valueB];
     
     //绘图（画线）
-    CGContextSetLineWidth(ref, lineWidth);
-    CGContextSetLineCap(ref, kCGLineCapRound);
+    CGContextSetLineWidth(ctx, lineWidth);
+    if (isFirst || isLast) {
+        CGContextSetLineCap(ctx, kCGLineCapRound);
+    }else {
+        CGContextSetLineCap(ctx, kCGLineCapSquare);
+    }
+    
     if (percent == 0.0000000 || percent == 1 - 1/self.total) {
+        
         CGFloat first = width * percent + lineWidth * 0.5;
         CGFloat second =  width * percent + width * (1/_total) - lineWidth * 0.5;
-        CGContextMoveToPoint(ref,  first, startPoint.y );
-        CGContextAddLineToPoint(ref, first < second ? second : first, startPoint.y);
+        CGContextMoveToPoint(ctx,  first, startPoint.y );
+        CGContextAddLineToPoint(ctx, first < second ? second : first, startPoint.y);
     }else{
         CGFloat first = width * percent;
         CGFloat second = width * percent + width * (1/_total);
-        CGContextMoveToPoint(ref, first, startPoint.y);
-        CGContextAddLineToPoint(ref, second, startPoint.y);
+        CGContextMoveToPoint(ctx, first, startPoint.y);
+        CGContextAddLineToPoint(ctx, second, startPoint.y);
     }
-    CGContextSetStrokeColorWithColor(ref, [UIColor colorWithRed:(OFR+(FR-OFR)*percent) / 255.0 green:(OFG+(FG-OFG)*percent) / 255.0 blue:(OFB+(FB-OFB)*percent) / 255.0 alpha:1].CGColor);
+    CGContextSetStrokeColorWithColor(ctx, [UIColor colorWithRed:(OFR+(FR-OFR)*percent) / 255.0 green:(OFG+(FG-OFG)*percent) / 255.0 blue:(OFB+(FB-OFB)*percent) / 255.0 alpha:1].CGColor);
     
     //渲染
-    CGContextStrokePath(ref);
-}
-
-
-- (UIColor *)colorWithHex:(NSInteger)hexValue alpha:(CGFloat)alpha
-{
-    return [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16)) / 255.0
-                           green:((float)((hexValue & 0xFF00) >> 8)) / 255.0
-                            blue:((float)(hexValue & 0xFF))/255.0
-                           alpha:alpha];
+    CGContextStrokePath(ctx);
 }
 
 

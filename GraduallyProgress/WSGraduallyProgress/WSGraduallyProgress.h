@@ -15,5 +15,6 @@
 @property (nonatomic, strong) UIColor *startColor;
 @property (nonatomic, strong) UIColor *endColor;
 @property (nonatomic, strong) UIColor *bgColor;
+@property (nonatomic, assign) CGFloat height;
 
 @end
